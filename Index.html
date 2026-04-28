@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Time Manager</title>
+    <title>Sticker Haven - Premium Stickers</title>
     <style>
         * {
             margin: 0;
@@ -12,386 +12,402 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #e7e3e3;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b6b;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 0 80px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        .stickers-grid {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .sticker-card {
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
         }
 
-        .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        .sticker-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .sticker-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .sticker-card:hover .sticker-image {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .sticker-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .sticker-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
             color: white;
-            padding: 30px;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.05);
+        }
+
+        .features {
+            padding: 80px 0;
             text-align: center;
+            color: white;
         }
 
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .main-content {
+        .features-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            min-height: 600px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
-        .input-section {
-            background: #f8f9fa;
-            padding: 30px;
-            border-right: 1px solid #eee;
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
         }
 
-        .schedule-section {
-            padding: 30px;
-            overflow-x: auto;
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .task-input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e1e5e9;
-            border-radius: 10px;
-            font-size: 16px;
-            margin-bottom: 15px;
-            transition: border-color 0.3s;
-        }
-
-        .task-input:focus {
-            outline: none;
-            border-color: #4facfe;
-        }
-
-        .priority-select, .duration-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .add-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        footer {
+            background: rgba(0, 0, 0, 0.8);
             color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .add-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .task-list {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-top: 20px;
-        }
-
-        .task-item {
-            background: white;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            border-left: 4px solid #4facfe;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .task-item.high { border-left-color: #ff6b6b; }
-        .task-item.medium { border-left-color: #feca57; }
-        .task-item.low { border-left-color: #51cf66; }
-
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .schedule-table th {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 20px 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .schedule-table td {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            vertical-align: top;
-        }
-
-        .time-slot {
-            font-weight: bold;
-            color: #4facfe;
-            font-size: 14px;
-        }
-
-        .task-block {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 10px 12px;
-            border-radius: 8px;
-            margin: 5px 0;
-            font-size: 14px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .task-block.high { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); }
-        .task-block.medium { background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%); }
-        .task-block.low { background: linear-gradient(135deg, #51cf66 0%, #40c057 100%); }
-
-        .clear-btn {
-            width: 100%;
-            padding: 12px;
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            margin-top: 10px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .stats {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
             text-align: center;
-        }
-
-        .stat-item {
-            display: inline-block;
-            margin: 0 15px;
-            font-size: 18px;
-            font-weight: bold;
+            padding: 3rem 0;
         }
 
         @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
+            .nav-links {
+                display: none;
             }
             
-            .header h1 {
-                font-size: 2em;
+            .hero h1 {
+                font-size: 2.5rem;
             }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cart-count {
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎓 Student Time Manager</h1>
-            <p>Upload your daily tasks and get an optimized schedule!</p>
+    <header>
+        <nav class="container">
+            <div class="logo">Sticker Haven</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#stickers">Stickers</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><span id="cartCount" class="cart-count" style="display: none;">0</span> Cart</li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Premium Stickers for Everyone</h1>
+            <p>High-quality, durable vinyl stickers that stick around. Perfect for laptops, water bottles, phones & more!</p>
+            <a href="#stickers" class="cta-button">Shop Now</a>
         </div>
+    </section>
 
-        <div class="main-content">
-            <div class="input-section">
-                <h3 style="margin-bottom: 20px; color: #333;">📝 Add Your Tasks</h3>
-                
-                <input type="text" class="task-input" id="taskInput" placeholder="Enter your task (e.g., Math homework, Study Biology, Gym)">
-                
-                <select class="priority-select" id="prioritySelect">
-                    <option value="high">🔴 High Priority</option>
-                    <option value="medium">🟡 Medium Priority</option>
-                    <option value="low">🟢 Low Priority</option>
-                </select>
-
-                <input type="number" class="duration-input" id="durationInput" placeholder="Duration (minutes)" min="15" max="240" value="60">
-
-                <button class="add-btn" onclick="addTask()">➕ Add Task</button>
-                <button class="add-btn" onclick="generateSchedule()" style="background: linear-gradient(135deg, #51cf66 0%, #40c057 100%); margin-top: 10px;">✨ Generate Schedule</button>
-
-                <div class="task-list" id="taskList"></div>
-                
-                <button class="clear-btn" onclick="clearAll()">🗑️ Clear All Tasks</button>
-
-                <div class="stats" id="stats">
-                    <div class="stat-item" id="totalTasks">0 tasks</div>
-                    <div class="stat-item" id="totalTime">0 min</div>
-                </div>
-            </div>
-
-            <div class="schedule-section">
-                <h3 style="margin-bottom: 20px; color: #333;">📅 Your Optimized Daily Schedule</h3>
-                <div style="margin-bottom: 20px; font-size: 14px; color: #666;">
-                    Schedule starts at 8:00 AM with 15-min breaks between tasks
-                </div>
-                <table class="schedule-table" id="scheduleTable">
-                    <thead>
-                        <tr>
-                            <th>Time Slot</th>
-                            <th>Task</th>
-                        </tr>
-                    </thead>
-                    <tbody id="scheduleBody">
-                        <!-- Schedule will be generated here -->
-                    </tbody>
-                </table>
+    <section id="stickers" class="stickers-grid">
+        <div class="container">
+            <h2 class="section-title">Featured Stickers</h2>
+            <div class="grid" id="stickersGrid">
+                <!-- Stickers will be populated by JavaScript -->
             </div>
         </div>
-    </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Stickers?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>🏆 Premium Quality</h3>
+                    <p>Waterproof vinyl stickers that last 5+ years outdoors</p>
+                </div>
+                <div class="feature">
+                    <h3>⚡ Fast Shipping</h3>
+                    <p>Orders ship within 24 hours worldwide</p>
+                </div>
+                <div class="feature">
+                    <h3>💰 Great Prices</h3>
+                    <p>Starting at just $2.99 per sticker</p>
+                </div>
+                <div class="feature">
+                    <h3>🌟 100% Satisfaction</h3>
+                    <p>Love it or your money back guarantee</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sticker Haven. All rights reserved. | Made with ❤️ for sticker lovers</p>
+        </div>
+    </footer>
 
     <script>
-        let tasks = [];
-
-        function addTask() {
-            const taskInput = document.getElementById('taskInput');
-            const prioritySelect = document.getElementById('prioritySelect');
-            const durationInput = document.getElementById('durationInput');
-            
-            const taskText = taskInput.value.trim();
-            const priority = prioritySelect.value;
-            const duration = parseInt(durationInput.value) || 60;
-
-            if (taskText === '') {
-                alert('Please enter a task!');
-                return;
+        // Sticker data
+        const stickers = [
+            {
+                id: 1,
+                name: "Retro Cat",
+                price: 3.99,
+                image: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400&h=300&fit=crop"
+            },
+            {
+                id: 2,
+                name: "Mountain Vibes",
+                price: 2.99,
+                image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop"
+            },
+            {
+                id: 3,
+                name: "Rocket Ship",
+                price: 4.49,
+                image: "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=400&h=300&fit=crop"
+            },
+            {
+                id: 4,
+                name: "Coffee Time",
+                price: 3.49,
+                image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop"
+            },
+            {
+                id: 5,
+                name: "Sunset Palm",
+                price: 3.79,
+                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop"
+            },
+            {
+                id: 6,
+                name: "Pixel Heart",
+                price: 2.49,
+                image: "https://images.unsplash.com/photo-1556656794-5cf553a1c656?w=400&h=300&fit=crop"
             }
+        ];
 
-            const task = {
-                id: Date.now(),
-                text: taskText,
-                priority: priority,
-                duration: duration
-            };
+        let cart = [];
 
-            tasks.push(task);
-            taskInput.value = '';
-            updateTaskList();
-            updateStats();
-        }
-
-        function updateTaskList() {
-            const taskList = document.getElementById('taskList');
-            taskList.innerHTML = '';
-
-            // Sort tasks by priority (high > medium > low)
-            const sortedTasks = [...tasks].sort((a, b) => {
-                const priorityOrder = { high: 3, medium: 2, low: 1 };
-                return priorityOrder[b.priority] - priorityOrder[a.priority];
-            });
-
-            sortedTasks.forEach(task => {
-                const taskItem = document.createElement('div');
-                taskItem.className = `task-item ${task.priority}`;
-                taskItem.innerHTML = `
-                    <div style="font-weight: bold; margin-bottom: 5px;">${task.text}</div>
-                    <div style="font-size: 14px; color: #666;">
-                        Priority: ${task.priority.toUpperCase()} • ${task.duration} min
-                        <button onclick="removeTask(${task.id})" style="float: right; background: #ff6b6b; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 12px;">×</button>
+        // Render stickers
+        function renderStickers() {
+            const grid = document.getElementById('stickersGrid');
+            grid.innerHTML = stickers.map(sticker => `
+                <div class="sticker-card" data-id="${sticker.id}">
+                    <img src="${sticker.image}" alt="${sticker.name}" class="sticker-image">
+                    <div class="card-content">
+                        <h3 class="sticker-name">${sticker.name}</h3>
+                        <div class="sticker-price">$${sticker.price}</div>
+                        <button class="add-to-cart" onclick="addToCart(${sticker.id})">
+                            Add to Cart
+                        </button>
                     </div>
-                `;
-                taskList.appendChild(taskItem);
-            });
+                </div>
+            `).join('');
         }
 
-        function removeTask(id) {
-            tasks = tasks.filter(task => task.id !== id);
-            updateTaskList();
-            updateStats();
-            // Regenerate schedule if exists
-            generateSchedule();
-        }
-
-        function updateStats() {
-            const totalTasks = tasks.length;
-            const totalTime = tasks.reduce((sum, task) => sum + task.duration, 0);
+        // Add to cart functionality
+        function addToCart(stickerId) {
+            const sticker = stickers.find(s => s.id === stickerId);
+            const existingItem = cart.find(item => item.id === stickerId);
             
-            document.getElementById('totalTasks').textContent = `${totalTasks} tasks`;
-            document.getElementById('totalTime').textContent = `${totalTime} min`;
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...sticker, quantity: 1 });
+            }
+            
+            updateCartCount();
+            alert(`${sticker.name} added to cart! 🎉`);
         }
 
-        function generateSchedule() {
-            if (tasks.length === 0) {
-                alert('Please add some tasks first!');
-                return;
+        // Update cart count
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.getElementById('cartCount');
+            
+            if (totalItems > 0) {
+                cartCount.textContent = totalItems;
+                cartCount.style.display = 'inline';
+            } else {
+                cartCount.style.display = 'none';
             }
+        }
 
-            // Sort tasks by priority for optimal scheduling
-            const sortedTasks = [...tasks].sort((a, b) => {
-                const priorityOrder = { high: 3, medium: 2, low: 1 };
-                return priorityOrder[b.priority] - priorityOrder[a.priority];
-            });
-
-            const scheduleBody = document.getElementById('scheduleBody');
-            scheduleBody.innerHTML = '';
-
-            let currentTime = new Date();
-            currentTime.setHours(8, 0, 0, 0); // Start at 8:00 AM
-
-            sortedTasks.forEach(task => {
-                const timeSlotStart = formatTime(currentTime);
-                const durationHours = Math.floor(task.duration / 60);
-                const durationMinutes = task.duration % 60;
-                const timeSlotEnd = new Date(currentTime.getTime() + task.duration * 60000);
-                const timeSlot = `${timeSlotStart} - ${formatTime(timeSlotEnd)}`;
-
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="time-slot">${timeSlot}</td>
-                    <td>
-                        <div class="task-block ${task.priority}">
-                            <strong>${task.text}</strong><br>
-                            <small>${task.duration} min • ${task.priority.toUpperCase()} Priority</small>
-                        </div>
-                    </td>
-                `;
-                scheduleBody.appendChild(row);
-
-                // Add 15-minute break (except for last task)
-                if (sortedTasks.indexOf(task) < sortedTasks.length - 1) {
-                    currentTime = new Date(currentTime.getTime() + (task.duration + 15) * 60000);
-                } else {
-                    currentTime = timeSlotEnd;
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
-
-            // Scroll to schedule
-            document.querySelector('.schedule-section').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function formatTime(date) {
-            return date.toTimeString().slice(0, 5);
-        }
-
-        function clearAll() {
-            if (confirm('Are you sure you want to clear all tasks?')) {
-                tasks = [];
-                updateTaskList();
-                updateStats();
-                document.getElementById('scheduleBody').innerHTML = '';
-            }
-        }
-
-        // Allow Enter key to add tasks
-        document.getElementById('taskInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addTask();
-            }
         });
 
         // Initialize
-        updateStats();
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStickers();
+            updateCartCount();
+        });
     </script>
 </body>
 </html>
